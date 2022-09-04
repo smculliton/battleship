@@ -121,6 +121,3 @@ class Game
         end
     end
 end 
-
-game = Game.new 
-game.boat_explosion

@@ -22,7 +22,6 @@ class User
             puts @board.render(true)
             puts "\nEnter the squares for the #{ship.name} (#{ship.length} squares) separated by one space"
             ship_placement = gets.chomp.upcase.split(' ')
-            # binding.pry 
             until ship_placement.length == ship.length && @board.valid_placement?(ship, ship_placement)
                 puts 'Invalid entry. Please try again.'
                 ship_placement = gets.chomp.upcase.split(' ')

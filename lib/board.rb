@@ -74,21 +74,7 @@ class Board
                 end
             end
         end
-        # @cells.values.each_with_index do |cell, index|
-
-        #     render.concat("\n#{row_starts[index/4]} ") if index % 4 == 0
-
-        #     if ships == true && cell.empty? == false && cell.fired_upon? == false
-        #         render.concat("S ")
-        #     else
-        #         render.concat("#{cell.render} ")
-        #     end 
-        # end
         render.concat("\n") 
     end 
 
 end 
-
-# board = Board.new 
-# board.spawn_board(5,10)
-# puts board.render

@@ -137,25 +137,3 @@ def boat_explosion_animation
         end
     end 
 end 
-
-# boat_explosion_animation
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# puts 'HIT!!'
-
-
-# t = Time.now
-# puts t.nsec
