@@ -16,7 +16,7 @@ class Game
 
     def start
         main_menu
-
+        #add main menu command to change board size
         command = ''
         until command == 'q' || command == 'p' do
             print '(?) - '
@@ -27,6 +27,14 @@ class Game
             puts '-- invalid command --'
             puts ' '
         end
+
+        puts 'Board width?'
+        width = gets.chomp.to_i 
+        puts 'Board height?'
+        height = gets.chomp.to_i
+        player.board.spawn_board(width, height)
+        comp.board.spawn_board(width, height)
+
         player.place_ships 
         comp.place_ships
         new_turn

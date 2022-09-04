@@ -25,6 +25,18 @@ class Board
         }
     end 
 
+    def spawn_board(width, height)
+        @cells = {}
+        width.times do |i1|
+            height.times do |i2|
+                letter = ('A'..'Z').to_a[i2]
+                number = i1 + 1
+                @cells["#{letter}#{number}"] = Cell.new("#{letter}#{number}")
+            end
+        end
+        # binding.pry 
+    end
+
     def valid_coordinate?(coordinate)
         @cells.keys.include?(coordinate)
     end 
