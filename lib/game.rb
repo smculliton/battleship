@@ -85,11 +85,12 @@ class Game
             i = 0
             5.times do 
                 now = Time.now.sec
+                #its getting stuck when the minute changes bc (now = :59) & (now + 1) is a second that can't exist
                 h = 0
                 loop do 
                     h += 1
-                    break if h == 100000000
-                    if Time.now.sec == (now + 1)
+                    break if h == 800000
+                    if Time.now.sec >= (now + 1) || Time.now.sec < 3
                         puts "\n\n\n\n\n\n\n\n\n" +
                         '                                    __/___            
                               _____/______|           
@@ -112,6 +113,7 @@ class Game
                             <|i::|i|`.
                            (` ^`"`-` ")
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' if i == 4
+                        
                     i += 1
                     break
                 end 
@@ -119,3 +121,6 @@ class Game
         end
     end
 end 
+
+game = Game.new 
+game.boat_explosion

@@ -23,14 +23,18 @@ class Board
             "D3" => Cell.new('D3'),
             "D4" => Cell.new('D4')
         }
+        @width = 4
+        @height = 4
     end 
 
     def spawn_board(width, height)
         @cells = {}
-        width.times do |i1|
-            height.times do |i2|
-                letter = ('A'..'Z').to_a[i2]
-                number = i1 + 1
+        @width = width 
+        @height = height
+        height.times do |i1|
+            width.times do |i2|
+                letter = ('A'..'Z').to_a[i1]
+                number = i2 + 1
                 @cells["#{letter}#{number}"] = Cell.new("#{letter}#{number}")
             end
         end
@@ -56,17 +60,35 @@ class Board
     end 
 
     def render(ships = false)
-        render = "  1 2 3 4 "
-        row_starts = ['A','B','C','D']
-        @cells.values.each_with_index do |cell, index|
-            render.concat("\n#{row_starts[index/4]} ") if index % 4 == 0
-            if ships == true && cell.empty? == false && cell.fired_upon? == false
-                render.concat("S ")
-            else
-                render.concat("#{cell.render} ")
-            end 
+        render = ('1'..'100').to_a.first(@width).join(' ').prepend('  ')
+        row_starts = ('A'..'Z').to_a.first(@height)
+
+        row_starts.each do |row|
+            render.concat("\n#{row} ")
+            @width.times do |i|
+                cell = @cells["#{row}#{i + 1}"]
+                if ships == true && cell.empty? == false && cell.fired_upon? == false
+                    render.concat("S ")
+                else
+                    render.concat("#{cell.render} ")
+                end
+            end
         end
-        render.concat("\n")
+        # @cells.values.each_with_index do |cell, index|
+
+        #     render.concat("\n#{row_starts[index/4]} ") if index % 4 == 0
+
+        #     if ships == true && cell.empty? == false && cell.fired_upon? == false
+        #         render.concat("S ")
+        #     else
+        #         render.concat("#{cell.render} ")
+        #     end 
+        # end
+        render.concat("\n") 
     end 
 
 end 
+
+# board = Board.new 
+# board.spawn_board(5,10)
+# puts board.render
