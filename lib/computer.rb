@@ -33,7 +33,7 @@ class Computer
     end  
 
     def shoot(board)
-        coordinate = ['A','B','C','D'].sample.concat(rand(1..4).to_s)
+        coordinate = ('A'..'Z').to_a.first(@board.height).sample.concat(rand(1..@board.width).to_s)
 
         if board.cells.keys.include?(coordinate) == false
             return shoot(board)

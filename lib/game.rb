@@ -16,24 +16,18 @@ class Game
 
     def start
         main_menu
-        #add main menu command to change board size
+
         command = ''
         until command == 'q' || command == 'p' do
             print '(?) - '
             command = gets.chomp
             return if command.downcase == 'q'
             break if command.downcase == 'p'
+            return change_board if command.downcase == 'b'
             puts ' '
             puts '-- invalid command --'
             puts ' '
         end
-
-        puts 'Board width?'
-        width = gets.chomp.to_i 
-        puts 'Board height?'
-        height = gets.chomp.to_i
-        player.board.spawn_board(width, height)
-        comp.board.spawn_board(width, height)
 
         player.place_ships 
         comp.place_ships
@@ -120,4 +114,23 @@ class Game
             end
         end
     end
+
+    def change_board
+        puts `clear`
+        puts 'Board width? (Enter 1 - 20)'
+        width = gets.chomp.to_i 
+        until (1..20).include?(width)
+            puts 'Please enter a number between 1 and 20'
+            width = gets.chomp.to_i 
+        end 
+        puts 'Board height? (Enter 1 - 20)'
+        height = gets.chomp.to_i
+        until (1..20).include?(height)
+            puts 'Please enter a number between 1 and 20'
+            height = gets.chomp.to_i 
+        end 
+        player.board.spawn_board(width, height)
+        comp.board.spawn_board(width, height)
+        start
+    end 
 end 

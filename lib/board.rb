@@ -2,7 +2,7 @@ require 'pry'
 require './lib/cell'
 
 class Board 
-    attr_reader :cells 
+    attr_reader :cells, :width, :height 
 
     def initialize
         @cells = {
@@ -38,7 +38,6 @@ class Board
                 @cells["#{letter}#{number}"] = Cell.new("#{letter}#{number}")
             end
         end
-        # binding.pry 
     end
 
     def valid_coordinate?(coordinate)
@@ -47,10 +46,13 @@ class Board
 
     def valid_placement?(ship, cells)
         return false unless cells.all? { |cell| @cells.keys.include?(cell) }
+        
         letters = cells.map { |cell| cell[0] }
-        numbers = cells.map { |cell| cell[1] }
+        numbers = cells.map { |cell| cell.delete(('A'..'Z').to_a.join) }
         return false unless ship.length == cells.length
-        return false unless (letters.uniq.length == 1 && numbers == (numbers.min..numbers.max).to_a) || (numbers.uniq.length == 1 && letters == (letters.min..letters.max).to_a)
+        # binding.pry
+        # return false unless (letters.uniq.length == 1 && numbers == (numbers.min..numbers.max).to_a) || (numbers.uniq.length == 1 && letters == (letters.min..letters.max).to_a)
+        return false unless (letters.uniq.length == 1 && numbers.each_cons(2).all? { |num1, num2| num1.next == num2 } ) || (numbers.uniq.length == 1 && letters == (letters.min..letters.max).to_a)
         return false unless cells.all? { |cell| @cells[cell].empty? }
         true 
     end 
@@ -60,7 +62,18 @@ class Board
     end 
 
     def render(ships = false)
-        render = ('1'..'100').to_a.first(@width).join(' ').prepend('  ')
+        render = ('1'..'100').to_a.first(@width)
+        # render = render.join(' ').prepend('  ') unless @width > 10
+        render = render.map do |num| 
+            if num.to_i < 10
+                "#{num} "
+            else
+                num
+            end
+        end
+        render = render.join.prepend('  ')
+        
+        
         row_starts = ('A'..'Z').to_a.first(@height)
 
         row_starts.each do |row|
