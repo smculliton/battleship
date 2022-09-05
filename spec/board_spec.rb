@@ -18,6 +18,16 @@ RSpec.describe Board do
             expect(@board.cells['A1']).to be_an_instance_of Cell
         end 
     end 
+    describe '#adjacent_coordinates' do 
+        it 'returns adjacent coordinates to given coordinate' do 
+            board = Board.new  
+            expect(board.adjacent_coordinates('B2')).to eq(['B1','B3','C2','A2'])
+        end
+        it 'handles edge cases' do 
+            board = Board.new
+            expect(board.adjacent_coordinates('A2')).to eq(['A1','A3','B2'])
+        end
+    end
     describe '#valid_coordinate?' do 
         it 'says if a coordinate is valid' do 
             board = Board.new 

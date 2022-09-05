@@ -90,4 +90,15 @@ class Board
         render.concat("\n") 
     end 
 
+    def adjacent_coordinates(coordinate)
+        adj_coords = []
+        split_coord = coordinate.split(//, 2)
+
+        adj_coords << "#{split_coord[0]}#{((split_coord[1].to_i - 1).to_s)}"
+        adj_coords << "#{split_coord[0]}#{(split_coord[1].next).to_s}"
+        adj_coords << split_coord[0].next.concat(split_coord[1])
+        adj_coords << ('A'..'Z').to_a[('A'..'Z').to_a.index(split_coord[0]) - 1].concat(split_coord[1])
+        adj_coords.select { |coord| valid_coordinate?(coord) }
+    end
+
 end 
