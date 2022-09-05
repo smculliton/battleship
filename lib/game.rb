@@ -64,6 +64,9 @@ class Game
         boat_explosion
         puts"\n\n\n"
         puts "               ( O===----- #{player} WON!! -----===O )"
+        puts ' '
+        puts ' '
+        puts 'Press ENTER to return'
         gets.chomp 
         new_game = Game.new
         new_game.start
@@ -137,30 +140,28 @@ class Game
 
     def change_ships
         puts `clear`
-        puts 'Enter Ship 1 Name:'
-        name1 = gets.chomp
-        puts "Enter #{name1} length (1-#{[@player.board.width, @player.board.height].max}):"
-        length1 = gets.chomp.to_i
-        until (1..([@player.board.width, @player.board.height].max)).include?(length1)
-            puts "Invalid length. Please enter a number between 1 and #{[@player.board.width, @player.board.height].min}"
-            length1 = gets.chomp.to_i
-        end
-        puts `clear`
-        puts 'Enter Ship 2 Name:'
-        name2 = gets.chomp
-        puts "Enter #{name2} length (1-#{[@player.board.width, @player.board.height].max}):"
-        length2 = gets.chomp.to_i
-        until (1..([@player.board.width, @player.board.height].max)).include?(length1)
-            puts "Invalid length. Please enter a number between 1 and #{[@player.board.width, @player.board.height].min}"
-            length1 = gets.chomp.to_i
+        puts 'How many ships do you want for this game? (Enter 1 - 4)'
+        ship_count = gets.chomp.to_i
+        until (1..4).include?(ship_count)
+            puts 'Please enter a number between 1 and 4:'
+            ship_count = gets.chomp.to_i
         end
 
-        # @player.ship1 = Ship.new(name1, length1)
-        # @player.ship2 = Ship.new(name2, length2)
-        @player.ships = [Ship.new(name1, length1), Ship.new(name2, length2)]
-        # @comp.ship1 = Ship.new(name1, length1)
-        # @comp.ship2 = Ship.new(name2, length2)
-        @comp.ships = [Ship.new(name1, length1), Ship.new(name2, length2)]
+        @player.ships = []
+        @comp.ships = []
+
+        ship_count.times do |i|
+            puts "Enter Ship #{i+1} Name:"
+            name = gets.chomp
+            puts "Enter #{name} length (1-#{[@player.board.width, @player.board.height].max}):"
+            length = gets.chomp.to_i
+            until (1..([@player.board.width, @player.board.height].max)).include?(length)
+                puts "Invalid length. Please enter a number between 1 and #{[@player.board.width, @player.board.height].min}"
+                length = gets.chomp.to_i
+            end
+            @player.ships << Ship.new(name, length)
+            @comp.ships << Ship.new(name, length)
+        end
         start
     end
 

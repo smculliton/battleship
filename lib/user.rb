@@ -17,8 +17,7 @@ class User
         @ships.each do |ship|
             puts `clear`
             puts 'I have laid out my ships on the grid.'
-            puts 'You now need to lay out your two ships.'
-            puts 'The Cruiser is three units long and the Submarine is two units long.'
+            puts 'You now need to lay out your ships.'
             puts ' '
             puts @board.render(true)
             puts "\nEnter the squares for the #{ship.name} (#{ship.length} squares) separated by one space"
