@@ -3,7 +3,8 @@ require './lib/board'
 require 'pry'
 
 class Computer  
-    attr_reader :ship1, :ship2, :ships, :board
+    attr_reader :board
+    attr_accessor :ship1, :ship2, :ships
 
     def initialize(human = false)
         @ship1 = Ship.new('Cruiser', 3)

@@ -16,6 +16,7 @@ def main_menu
     puts'enter <p> to play'
     puts'enter <q> to quit'
     puts'enter <b> to change board size'
+    puts'enter <s> to change chip types'
     puts '================================================='
     puts ' '
     puts ' '

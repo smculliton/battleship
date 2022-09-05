@@ -24,6 +24,7 @@ class Game
             return if command.downcase == 'q'
             break if command.downcase == 'p'
             return change_board if command.downcase == 'b'
+            return change_ships if command.downcase == 's'
             puts ' '
             puts '-- invalid command --'
             puts ' '
@@ -133,4 +134,36 @@ class Game
         comp.board.spawn_board(width, height)
         start
     end 
+
+    def change_ships
+        puts `clear`
+        puts 'Enter Ship 1 Name:'
+        name1 = gets.chomp
+        puts "Enter #{name1} length (1-#{[@player.board.width, @player.board.height].max}):"
+        length1 = gets.chomp.to_i
+        until (1..([@player.board.width, @player.board.height].max)).include?(length1)
+            puts "Invalid length. Please enter a number between 1 and #{[@player.board.width, @player.board.height].min}"
+            length1 = gets.chomp.to_i
+        end
+        puts `clear`
+        puts 'Enter Ship 2 Name:'
+        name2 = gets.chomp
+        puts "Enter #{name2} length (1-#{[@player.board.width, @player.board.height].max}):"
+        length2 = gets.chomp.to_i
+        until (1..([@player.board.width, @player.board.height].max)).include?(length1)
+            puts "Invalid length. Please enter a number between 1 and #{[@player.board.width, @player.board.height].min}"
+            length1 = gets.chomp.to_i
+        end
+
+        # @player.ship1 = Ship.new(name1, length1)
+        # @player.ship2 = Ship.new(name2, length2)
+        @player.ships = [Ship.new(name1, length1), Ship.new(name2, length2)]
+        # @comp.ship1 = Ship.new(name1, length1)
+        # @comp.ship2 = Ship.new(name2, length2)
+        @comp.ships = [Ship.new(name1, length1), Ship.new(name2, length2)]
+        start
+    end
+
+
+
 end 
